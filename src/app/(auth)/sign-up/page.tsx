@@ -1,11 +1,8 @@
-
-
-
+"use client"
+import { SignUpCard } from "@/components/auth/signupcard";
 const SignUpPage = () =>{
     return (
-        <div>
-            <h1>Sign Up</h1>
-        </div>
+        <SignUpCard/>
     )
 
 
