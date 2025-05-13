@@ -9,7 +9,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import Link from "next/link";
-import loginSchema from "@/utils/schema";
+import {loginSchema} from "@/utils/schema";
 import { useLogin } from "@/utils/auth/api/use-login";
 
 
