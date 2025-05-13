@@ -1,5 +1,6 @@
 import { Context, Hono } from "hono";
 import {zValidator} from "@hono/zod-validator";
+<<<<<<< HEAD
 import  {loginSchema, registerSchema } from "@/utils/schema";
 import { createAdminClient } from "@/lib/appwrite";
 import { ID, Models } from "node-appwrite";
@@ -52,6 +53,28 @@ const app = new Hono()
     data:user,
   });
 });
+=======
+import { loginSchema, registerSchema } from "@/utils/schema";
+import { z } from "zod";
+const app = new Hono()
+.post("/login",
+    zValidator("json", loginSchema),
+    async (c) => {
+
+      const {email, password }  = await c.req.valid("json");
+
+      return c.json({
+        email, password})
+}
+).post("/register",
+    zValidator("json", registerSchema),
+    async (c) => {
+      const {name, email, password }  = await c.req.valid("json");
+
+      return c.json({
+        name, email, password})
+    })
+>>>>>>> 7af2f2a (feat: refactor authentication flow; implement registration functionality and update schemas for login and registration)
 
 export default app;
 

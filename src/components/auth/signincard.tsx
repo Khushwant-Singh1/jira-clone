@@ -9,7 +9,11 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import Link from "next/link";
+<<<<<<< HEAD
 import {loginSchema} from "@/utils/schema";
+=======
+import { loginSchema } from "@/utils/schema";
+>>>>>>> 7af2f2a (feat: refactor authentication flow; implement registration functionality and update schemas for login and registration)
 import { useLogin } from "@/utils/auth/api/use-login";
 
 
@@ -26,7 +30,11 @@ export const SignInCard = () => {
   });
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
-    mutate({json: values});
+    mutate({
+      json: 
+        values, // Using email as userId for now, adjust as needed
+    
+    });
   }
 
   return (

@@ -24,9 +24,20 @@ import {
 import { registerSchema } from "@/utils/schema";
 import { useRegister } from "@/utils/auth/api/use-register";
 
+<<<<<<< HEAD
 
 export const SignUpCard = () => {
   const { mutate } = useRegister();
+=======
+import { registerSchema } from "@/utils/schema";
+import { json } from "stream/consumers";
+import { useRegister } from "@/utils/auth/api/use-register";
+
+export const SignUpCard = () => {
+
+const {mutate} = useRegister();
+
+>>>>>>> 7af2f2a (feat: refactor authentication flow; implement registration functionality and update schemas for login and registration)
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -37,7 +48,12 @@ export const SignUpCard = () => {
   });
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
+<<<<<<< HEAD
     mutate({ json: values });
+=======
+    mutate({json: values});
+    // Handle sign up logic here
+>>>>>>> 7af2f2a (feat: refactor authentication flow; implement registration functionality and update schemas for login and registration)
   };
 
   return (
