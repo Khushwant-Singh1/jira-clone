@@ -1,0 +1,37 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { client } from "@/lib/rpc";
+import { InferResponseType, InferRequestType } from "hono";
+
+
+type ResponseType = InferResponseType<typeof client.api.auth.logout["$post"]>;
+
+
+
+export const useLogout = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation<ResponseType, Error>({
+
+
+    mutationFn: async ( ) => {
+      try {
+        console.log("Making logout request");
+
+        const response = await client.api.auth.logout["$post"]();
+        return await response.json();
+      } catch (error) {
+        console.error("Detailed login error:", error);
+        throw error;
+      }
+    },
+    onSuccess: () => {
+
+      queryClient.invalidateQueries({queryKey: ["current"]})
+      console.log("Logout successful:");
+    },
+    onError: (error) => {
+      console.error("Logout error:", error);
+    },
+  });
+
+  return mutation;
+};

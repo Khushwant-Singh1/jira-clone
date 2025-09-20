@@ -1,6 +1,5 @@
 import "server-only"
-import { Client, Account, Storage, Users, Databases } from "node-appwrite";
-import { cookies } from "next/headers";
+import { Client, Account } from "node-appwrite";
 
 
 export async function createAdminClient() {
@@ -13,4 +12,5 @@ export async function createAdminClient() {
     get account() {
       return new Account(client);
     }
-  }}
+  };
+}

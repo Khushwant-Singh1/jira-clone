@@ -7,13 +7,9 @@ import { FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import Link from "next/link";
-<<<<<<< HEAD
-import {loginSchema} from "@/utils/schema";
-=======
 import { loginSchema } from "@/utils/schema";
->>>>>>> 7af2f2a (feat: refactor authentication flow; implement registration functionality and update schemas for login and registration)
 import { useLogin } from "@/utils/auth/api/use-login";
 
 
@@ -30,6 +26,7 @@ export const SignInCard = () => {
   });
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
+    console.log("Form submitted with values:", values);
     mutate({
       json: 
         values, // Using email as userId for now, adjust as needed
@@ -82,7 +79,7 @@ export const SignInCard = () => {
               )}
             />
             
-            <Button disabled={false} size={"lg"} className="w-full">Sign In</Button>
+            <Button type="submit" disabled={false} size={"lg"} className="w-full">Sign In</Button>
           </form>
         </Form>
       </CardContent>
@@ -99,7 +96,7 @@ export const SignInCard = () => {
 
   <CardContent className="p-7 flex items-center justify-center">
     <p>
-      Don't have an account?{" "}
+      Don&apos;t have an account?{" "}
       <Link href="/sign-up" >
       <span className="text-blue-500 hover:underline">
         SignUp
