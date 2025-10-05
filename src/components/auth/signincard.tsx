@@ -1,3 +1,4 @@
+"use client";
 import { DottedSeparator } from "../dotted-separator";
 import { Card, CardHeader, CardContent, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
@@ -7,32 +8,34 @@ import { FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "../ui/form";
 import Link from "next/link";
 import { loginSchema } from "@/utils/schema";
 import { useLogin } from "@/utils/auth/api/use-login";
 
-
 export const SignInCard = () => {
-
-  const {mutate} = useLogin()
+  const { mutate, isPending } = useLogin();
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
-    }
+    },
   });
 
   const onSubmit = (values: z.infer<typeof loginSchema>) => {
     console.log("Form submitted with values:", values);
     mutate({
-      json: 
-        values, // Using email as userId for now, adjust as needed
-    
+      json: values, // Using email as userId for now, adjust as needed
     });
-  }
+  };
 
   return (
     <Card className="w-full h-full md:w-[487px] border-none shadow-none">
@@ -53,6 +56,7 @@ export const SignInCard = () => {
                   <FormControl>
                     <Input
                       {...field}
+                      
                       type="email"
                       placeholder="Enter Email Address"
                     />
@@ -61,7 +65,7 @@ export const SignInCard = () => {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               name="password"
               control={form.control}
@@ -78,8 +82,15 @@ export const SignInCard = () => {
                 </FormItem>
               )}
             />
-            
-            <Button type="submit" disabled={false} size={"lg"} className="w-full">Sign In</Button>
+
+            <Button
+              type="submit"
+              disabled={isPending}
+              size={"lg"}
+              className="w-full"
+            >
+              Sign In
+            </Button>
           </form>
         </Form>
       </CardContent>
@@ -87,24 +98,37 @@ export const SignInCard = () => {
         <DottedSeparator />
       </div>
       <CardContent className="p-7 flex flex-col gap-4">
-        <Button variant={"secondary"} size={"lg"} className="w-full" disabled={false}> <FcGoogle className="mr-2 size-5" /> Sign In with Google</Button>
-        <Button variant={"secondary"} size={"lg"} className="w-full" disabled={false}><FaGithub className="mr-2 size-5" />Sign In with GitHub</Button>
+        <Button
+          variant={"secondary"}
+          size={"lg"}
+          className="w-full"
+          disabled={false}
+        >
+          {" "}
+          <FcGoogle className="mr-2 size-5" /> Sign In with Google
+        </Button>
+        <Button
+          variant={"secondary"}
+          size={"lg"}
+          className="w-full"
+          disabled={false}
+        >
+          <FaGithub className="mr-2 size-5" />
+          Sign In with GitHub
+        </Button>
       </CardContent>
-<div className="px-7">
-  <DottedSeparator/>
-  </div>
+      <div className="px-7">
+        <DottedSeparator />
+      </div>
 
-  <CardContent className="p-7 flex items-center justify-center">
-    <p>
-      Don&apos;t have an account?{" "}
-      <Link href="/sign-up" >
-      <span className="text-blue-500 hover:underline">
-        SignUp
-        </span>
-      </Link>
-      </p>
-  </CardContent>
-
+      <CardContent className="p-7 flex items-center justify-center">
+        <p>
+          Don&apos;t have an account?{" "}
+          <Link href="/sign-up">
+            <span className="text-blue-500 hover:underline">SignUp</span>
+          </Link>
+        </p>
+      </CardContent>
     </Card>
   );
 };
