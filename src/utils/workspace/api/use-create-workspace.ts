@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { client } from "@/lib/rpc";
 import { InferResponseType, InferRequestType } from "hono";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 
 
 type ResponseType = InferResponseType<typeof client.api.workspace["$post"]>;
@@ -14,12 +14,12 @@ export const useCreationWorkspace = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
-    mutationFn: async ({ json }) => {
+    mutationFn: async ({ form }) => {
       try {
-        console.log("Making workspace creation request with data:", json);
+        console.log("Making workspace creation request with data:", form);
 
         const response = await client.api.workspace["$post"]({
-          json
+          form
         });
         return await response.json();
       } catch (error) {
