@@ -5,7 +5,16 @@ import { SessionMiddleware } from "@/lib/SessionMiddleware";
 import { DATABASE_ID, IMAGES_BUCKET_ID, TABLE_ID } from "@/lib/config";
 import { ID } from "node-appwrite";
 
-const app = new Hono().post(
+const app = new Hono()
+.get("/", SessionMiddleware, async (c) =>{
+    const databases = c.get("databases");
+    const workspace = await databases.listDocuments(
+        DATABASE_ID!,
+        TABLE_ID!,
+    )
+    return c.json({data:workspace})
+})
+.post(
   "/",
   zValidator("form", createWorkspaceSchema),
   SessionMiddleware,
