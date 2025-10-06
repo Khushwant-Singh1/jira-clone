@@ -1,7 +1,6 @@
-import { UserButton } from "@/components/auth/UserButton";
 import { getCurrent } from "@/utils/auth/actions";
 import { redirect } from "next/navigation";
-
+import { CreateWorkspaceForm } from "@/components/CreateWorkspaceForm";
 
 export default async function Home() {
   const user = await getCurrent();
@@ -9,8 +8,7 @@ export default async function Home() {
 
   return (
     <>
-      <h1>Welcome to the Home page of jira</h1>
-      <UserButton />
+      <CreateWorkspaceForm  />
     </>
   );
 }
